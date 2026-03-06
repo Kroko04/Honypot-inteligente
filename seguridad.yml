@@ -1,0 +1,27 @@
+name: Escaner de Seguridad (DevSecOps)
+
+
+on:
+  pull_request:
+    branches: [ "main" ] # Cada vez que alguien intente meter código en main
+
+
+jobs:
+  analisis_sast:
+    name: Escaneo de vulnerabilidades
+    runs-on: ubuntu-latest # Levanta un servidor Linux en la nube
+
+    steps:
+    - name: Descargar el código del repositorio
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10' 
+
+    - name: Instalar Bandit 
+      run: pip install bandit
+
+    - name: Escanear el código en busca de fallos
+      run: bandit -r . -ll -ii
