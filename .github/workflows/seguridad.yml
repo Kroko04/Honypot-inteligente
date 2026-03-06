@@ -2,9 +2,11 @@ name: Escaner de Seguridad
 
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ] # Cada vez que alguien intente meter código en main
-
+  workflow_dispatch:
 
 jobs:
   analisis_sast:
